@@ -69,12 +69,10 @@ public class PhoneApp {
 				BufferedWriter bw01 = new BufferedWriter(fw01);
 				
 				System.out.println("<2.등록>");
-				System.out.print(">이름:");
-				sc.nextLine(); String name = sc.nextLine();
-				System.out.print(">휴대전화:"); 
-				String ph = sc.nextLine();
-				System.out.print(">회사전화:");
-				String company = sc.nextLine();
+				sc.nextLine(); 
+				System.out.print(">이름:"); String name = sc.nextLine();
+				System.out.print(">휴대전화:"); String ph = sc.nextLine();
+				System.out.print(">회사전화:"); String company = sc.nextLine();
 				
 				//리스트에 추가
 				Person pr = new Person(name,ph,company);
@@ -92,6 +90,7 @@ public class PhoneApp {
 				
 			//삭제
 			case 3:
+				
 				//출력스트림
 				FileWriter fw02 = new FileWriter("C:\\javaStudy\\PhoneDB.txt");
 				BufferedWriter bw02 = new BufferedWriter(fw02);
@@ -115,8 +114,8 @@ public class PhoneApp {
 			//검색
 			case 4:
 				System.out.println("<4.검색>");
-				System.out.print(">이름:");
-				sc.nextLine(); String search = sc.nextLine();
+				sc.nextLine(); 
+				System.out.print(">이름:"); String search = sc.nextLine();
 				
 				for(int i=0; i<pList.size(); i++) {
 					String target = pList.get(i).getName();
