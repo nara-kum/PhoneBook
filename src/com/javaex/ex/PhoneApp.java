@@ -5,8 +5,6 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.Reader;
-import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -16,18 +14,16 @@ public class PhoneApp {
 	public static void main(String[] args) throws IOException {
 		
 		Scanner sc = new Scanner(System.in);
+		Person etc = new Person();
 		
 		//시작화면
-		System.out.println();
-		System.out.println("**************************************");
-		System.out.println("*          전화번호 관리 프로그램          *");
-		System.out.println("**************************************");
+		etc.strat();
 		
 		//배열 담을 리스트 메모리 올리기
 		List<Person> pList = new ArrayList<Person>();
 		
 		//읽기
-		Reader fr = new FileReader("C:\\javaStudy\\PhoneDB.txt");	
+		FileReader fr = new FileReader("C:\\javaStudy\\PhoneDB.txt");
 		BufferedReader br = new BufferedReader(fr);
 		
 		//읽은 목록 담기
@@ -41,21 +37,15 @@ public class PhoneApp {
 			pList.add(ps);
 		}
 		
-		
 		while(true) {
 			
 			//메뉴번호 입력받기
-			System.out.println();
-			System.out.println("1.리스트\t"+"2.등록\t"+"3.삭제\t"+"4.검색\t"+"5.종료");
-			System.out.println("--------------------------------------");
+			etc.menu();
 			System.out.print(">메뉴번호:"); int mene = sc.nextInt();
 			
-			//종료
+			//종료화면
 			if(mene==5) {
-				System.out.println();
-				System.out.println("**************************************");
-				System.out.println("*               감사합니다              *");
-				System.out.println("**************************************");
+				etc.end();
 				break;
 			}
 			
@@ -75,7 +65,7 @@ public class PhoneApp {
 			case 2:
 				
 				//출력스트림
-				Writer fw01 = new FileWriter("C:\\javaStudy\\PhoneDB.txt");
+				FileWriter fw01 = new FileWriter("C:\\javaStudy\\PhoneDB.txt");
 				BufferedWriter bw01 = new BufferedWriter(fw01);
 				
 				System.out.println("<2.등록>");
@@ -95,16 +85,15 @@ public class PhoneApp {
 					bw01.write(pList.get(i).getName()+","+pList.get(i).getHp()+","+pList.get(i).getCompany());
 					bw01.newLine();
 				}
-
 				bw01.close();
-				
+
 				System.out.println("[등록되었습니다.]");
 				break;
 				
 			//삭제
 			case 3:
 				//출력스트림
-				Writer fw02 = new FileWriter("C:\\javaStudy\\PhoneDB.txt");
+				FileWriter fw02 = new FileWriter("C:\\javaStudy\\PhoneDB.txt");
 				BufferedWriter bw02 = new BufferedWriter(fw02);
 				
 				System.out.println("<3.삭제>");
@@ -118,6 +107,7 @@ public class PhoneApp {
 					bw02.write(pList.get(i).getName()+","+pList.get(i).getHp()+","+pList.get(i).getCompany());
 					bw02.newLine();
 				}
+				bw02.close();
 				
 				System.out.println("[삭제되었습니다.]");
 				break;
@@ -126,7 +116,6 @@ public class PhoneApp {
 			case 4:
 				System.out.println("<4.검색>");
 				System.out.print(">이름:");
-				
 				sc.nextLine(); String search = sc.nextLine();
 				
 				for(int i=0; i<pList.size(); i++) {
@@ -137,14 +126,13 @@ public class PhoneApp {
 						pList.get(i).showList();
 					}
 				}
-				
 				break;
 				
 			default:
 				System.out.println("[다시 입력해 주세요.]");
-			}	
+			}
 		}
-		
+
 		br.close();
 		sc.close();
 	}
