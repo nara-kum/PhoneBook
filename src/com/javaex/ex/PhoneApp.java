@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -17,8 +16,6 @@ public class PhoneApp {
 	public static void main(String[] args) throws IOException {
 		
 		Scanner sc = new Scanner(System.in);
-		int mene;
-		String list;
 		
 		//시작화면
 		System.out.println();
@@ -35,7 +32,7 @@ public class PhoneApp {
 		
 		//읽은 목록 담기
 		while(true) {
-			list = br.readLine();
+			String list = br.readLine();
 			if(list==null) {
 				break;
 			}
@@ -46,11 +43,14 @@ public class PhoneApp {
 		
 		
 		while(true) {
+			
+			//메뉴번호 입력받기
 			System.out.println();
 			System.out.println("1.리스트\t"+"2.등록\t"+"3.삭제\t"+"4.검색\t"+"5.종료");
 			System.out.println("--------------------------------------");
-			System.out.print(">메뉴번호:"); mene = sc.nextInt();
+			System.out.print(">메뉴번호:"); int mene = sc.nextInt();
 			
+			//종료
 			if(mene==5) {
 				System.out.println();
 				System.out.println("**************************************");
@@ -58,16 +58,23 @@ public class PhoneApp {
 				System.out.println("**************************************");
 				break;
 			}
+			
 			switch(mene) {
+			
+			//리스트 확인
 			case 1:
 				System.out.println("<1.리스트>");
+				
 				for(int i=0; i<pList.size(); i++) {
 					System.out.print(i+1);
 					pList.get(i).showList();
 				}
 				break;
+				
+			//등록
 			case 2:
-				//쓰기
+				
+				//출력스트림
 				Writer fw01 = new FileWriter("C:\\javaStudy\\PhoneDB.txt");
 				BufferedWriter bw01 = new BufferedWriter(fw01);
 				
@@ -83,7 +90,7 @@ public class PhoneApp {
 				Person pr = new Person(name,ph,company);
 				pList.add(pr);
 				
-				//파일쓰기
+				//리스트 데이터 파일쓰기
 				for(int i=0; i<pList.size(); i++) {
 					bw01.write(pList.get(i).getName()+","+pList.get(i).getHp()+","+pList.get(i).getCompany());
 					bw01.newLine();
@@ -93,16 +100,20 @@ public class PhoneApp {
 				
 				System.out.println("[등록되었습니다.]");
 				break;
+				
+			//삭제
 			case 3:
-				//쓰기
+				//출력스트림
 				Writer fw02 = new FileWriter("C:\\javaStudy\\PhoneDB.txt");
 				BufferedWriter bw02 = new BufferedWriter(fw02);
 				
 				System.out.println("<3.삭제>");
 				System.out.print(">번호:"); int num = sc.nextInt();
 				
+				//리스트에서 삭제
 				pList.remove(num-1);
 
+				//삭제 후 파일에 다시쓰기
 				for(int i=0; i<pList.size(); i++) {
 					bw02.write(pList.get(i).getName()+","+pList.get(i).getHp()+","+pList.get(i).getCompany());
 					bw02.newLine();
@@ -110,13 +121,25 @@ public class PhoneApp {
 				
 				System.out.println("[삭제되었습니다.]");
 				break;
+				
+			//검색
 			case 4:
 				System.out.println("<4.검색>");
-				System.out.print(">이름:"); 
-				sc.nextLine(); String target = sc.nextLine();
+				System.out.print(">이름:");
 				
+				sc.nextLine(); String search = sc.nextLine();
+				
+				for(int i=0; i<pList.size(); i++) {
+					String target = pList.get(i).getName();
+					
+					if(target.contains(search)==true) {
+						System.out.print(i+1);
+						pList.get(i).showList();
+					}
+				}
 				
 				break;
+				
 			default:
 				System.out.println("[다시 입력해 주세요.]");
 			}	
