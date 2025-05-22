@@ -1,4 +1,4 @@
-package com.javaex.ex;
+package com.javaex.ex01;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

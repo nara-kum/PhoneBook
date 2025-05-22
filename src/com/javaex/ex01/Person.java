@@ -1,4 +1,4 @@
-package com.javaex.ex;
+package com.javaex.ex01;
 
 public class Person {
 	//필드
